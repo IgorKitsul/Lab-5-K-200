@@ -1,0 +1,30 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+
+public class TextProcessor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Програма для обробки текстового рядка:");
+        System.out.println(" - а) Iнвертувати рядок");
+        System.out.println(" - б) Пiдрахувати кiлькiсть чисел у текстi");
+        System.out.println("Введiть текстовий рядок:");
+
+        String input = scanner.nextLine();
+ 
+        String reversed = new StringBuilder(input).reverse().toString();
+        System.out.println("а) Iнверсiя рядка: " + reversed);
+  
+        Pattern numberPattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+        Matcher matcher = numberPattern.matcher(input);
+        int count = 0;
+        while (matcher.find()) {
+            count++;
+        }
+
+        System.out.println("б) Кiлькiсть чисел у текстi: " + count);
+    }
+}
