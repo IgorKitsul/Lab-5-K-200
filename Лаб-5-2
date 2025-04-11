@@ -1,0 +1,63 @@
+# Lab-5-K-200
+import java.io.*;
+import java.util.Scanner;
+
+public class SportOlympiad {
+
+    public static void main(String[] args) {
+        
+        String filePath = "sport.txt";
+
+        
+        String[] winners = {
+            "Кіцул Ігор: 95",
+            "Петренко Олена: 88",
+            "Сидоренко Павло: 90"
+        };
+
+        
+        System.out.println("Переможці олімпіади:");
+        for (String winner : winners) {
+            System.out.println(winner);
+        }
+
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nВведіть ім'я голови журі: ");
+        String juryHead = scanner.nextLine().trim();
+
+       
+        if (juryHead.isEmpty()) {
+            System.out.println("Ім'я голови журі не може бути порожнім.");
+            return;
+        }
+
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+           
+            File file = new File(filePath);
+            if (file.length() == 0) {
+              
+                for (String winner : winners) {
+                    writer.write(winner);
+                    writer.newLine();
+                }
+            }
+
+            
+            writer.write("Голова журі: " + juryHead);
+            writer.newLine();
+
+           
+            System.out.println("\nВміст файлу після запису:");
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Сталася помилка при роботі з файлом: " + e.getMessage());
+        }
+    }
+}
